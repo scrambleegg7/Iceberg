@@ -19,14 +19,18 @@ import utils
 import models
 import params
 
+from Iceberg.env import setEnv
+
 ###############################################################################
 if __name__ == '__main__':
 
     np.random.seed(1017)
     target = 'is_iceberg'
 
+    env = setEnv()
+
     #Load data
-    floc = "/Users/donchan/Documents/myData/KaggleData/Iceberg/data/processed"
+    floc = env["data_dir"]
     test, test_bands = utils.read_jason(file='test.json', loc=floc)
     test_X_dup = utils.rescale(test_bands)
     test_meta = test['inc_angle'].values

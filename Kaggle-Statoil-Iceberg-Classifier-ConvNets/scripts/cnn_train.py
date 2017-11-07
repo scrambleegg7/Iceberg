@@ -30,6 +30,8 @@ import utils
 import models
 import params
 
+from Iceberg.env import setEnv
+
 ###############################################################################
 
 def data_generator(data=None, meta_data=None, labels=None, batch_size=16, augment={}, opt_shuffle=True):
@@ -85,8 +87,8 @@ if __name__ == '__main__':
     np.random.seed(1017)
     target = 'is_iceberg'
 
-    #Load data
-    floc = "/Users/donchan/Documents/myData/KaggleData/Iceberg/data/processed"
+    env = setEnv()
+    floc = env["data_dir"]
 
     train, train_bands = utils.read_jason(file='train.json', loc=floc)
     test, test_bands = utils.read_jason(file='test.json', loc=floc)
@@ -122,7 +124,7 @@ if __name__ == '__main__':
 
     #train, validataion split
     test_ratio = 0.159
-    nr_runs = 1
+    nr_runs = 5
     split_seed = 25
     kf = StratifiedShuffleSplit(n_splits=nr_runs, test_size=test_ratio, train_size=None, random_state=split_seed)
 
